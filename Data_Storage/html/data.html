@@ -1,0 +1,105 @@
+<html>
+<head>
+    <title>Data Storage Application</title>
+
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik+Distressed&display=swap');
+        *{
+            background : #001;
+            color : #fff;
+        }
+        h1{
+        text-align: center;
+		font-size: 70px;
+		text-decoration: underline double;
+		text-decoration-color: yellow;
+		animation: shine 2s linear infinite ;
+    }
+    	@keyframes shine {
+		0%,20%,40%,60%,80%{
+		text-shadow: none;
+		}
+		20.1%,40.1%,60.1%,80.1%,100%{
+		text-shadow: 0 0 1px #fff,
+		             0 0 5px #fff,
+		             0 0 10px #fff,
+		             0 0 12px #fff;
+		}
+	}
+        .form{
+            display : flex;
+            justify-content : center;
+            align-items : center;
+            flex-direction : column;
+            position : absolute;
+            left : 50%;
+            top : 50%;
+            transform : translate(-50%, -50%);
+        }
+        input{
+            text-align : center;
+            margin : 9.5px;
+            padding : 7px;
+            outline : none;
+            border : none;
+            width : 200px;
+            background : transparent;
+            border-bottom : 0.1px solid #111;
+            font-size : 15px;
+            width : 200px;
+        }
+        .otp{
+            color : #565624;
+            font-family: 'Rubik Distressed', cursive;
+            font-weight : 500;
+            font-size : 23px;
+            cursor : not-allowed;
+            border : none;
+        }
+        .submit{
+            border : 0.5px solid #333;
+            border-radius : 23px;
+            font-size : 17px;
+            cursor : pointer;
+            color : #efe;
+            margin-top : 20px;
+            margin-bottom : 20px;
+        }
+        .message{
+            background : transparent;
+            font-size : 27px
+            margin-bottom : 10px;
+        }
+        input:focus, input:hover{
+            border-color : orange;
+        }
+    </style>
+    <script>
+        function get_otp()
+        {
+            var otp = Math.floor(100000 + Math.random() * 900000);
+            document.getElementsByClassName('otp')[0].value = otp;
+        }
+    </script>
+</head>
+
+<body onload="get_otp()">
+    <h1>Data Storage Application</h1>
+    <form action="data" method="post" class="form">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Type the name" value={{name}}>
+        <input type="text" name="age" placeholder="Enter your Age" value={{age}}>
+        <input type="text" name="area" placeholder="Type the area" value={{area}}>
+        <input type="text" name="gender" placeholder="Enter the gender details" value={{gender}}>
+        <input type="text" class="otp" name="otp" readonly>
+        <input type="text" name="entry" placeholder="Enter the otp">
+        <input type="submit" class="submit">
+        {% if flag %}
+            <span class="message" style="color : #0f0;font-size : 23px;">Data stored successfully!</span>
+        {% endif %}
+        {% if not flag and flag2%}
+            <span class="message" style="color : #f00;font-size:23px;">OTP is incorrect</span>
+        {% endif %}
+    </form>
+</body>
+</html>
